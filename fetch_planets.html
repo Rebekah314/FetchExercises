@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Fetch Planets</title>
+      <script>
+         window.addEventListener("load", function(){
+            // TODO: fetch planets JSON
+            let fetchPromise = fetch("https://handlers.education.launchcode.org/static/planets.json");
+            fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response){
+                response.json().then(function(json) {
+                    const destination = document.getElementById("destination");
+                    let clickCount = 0;
+                    destination.addEventListener("click", function(){
+                        destination.innerHTML = `
+                            <div>
+                                <h3>Planet ${json[clickCount].name}</h3>
+                                <img src=${json[clickCount].image} height=250></img>
+                                <p>Diameter: ${json[clickCount].diameter}</p>
+                                <p>Star: ${json[clickCount].star}</p>
+                                <p>Distance: ${json[clickCount].distance}</p>
+                                <p>Moons: ${json[clickCount].moons}</p>
+                            </div>
+                        `;
+                        clickCount++;
+                        if (clickCount === 6) {
+                            clickCount = 0;
+                        }
+                    });
+                });
+            });    
+        });
+      </script>
+   </head>
+   <body>
+      <h1>Destination</h1>
+      <div id="destination">
+         <h3>Planet</h3>
+      </div>
+   </body>
+</html>
